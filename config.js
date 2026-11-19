@@ -11,5 +11,5 @@ window.VD_CONFIG = {
   supabaseAnonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50bGN0d2Z1bGVlZmZrcGtyYXNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ5OTI5NjAsImV4cCI6MjExMDU2ODk2MH0.rDN9KQ8uV99kUNxqy_Xwj6KGwRPpWjTWNLsPhssDMMs",
   storageBucket: "media",
   contentId: "main",
-  siteUrl: "https://voskresenskiydesign.com"             // адрес основного сайта — заполняется только в сборке админки на отдельном домене
+  siteUrl: "https://voskresenskiydesign.uz"             // адрес основного сайта — заполняется только в сборке админки на отдельном домене
 };
