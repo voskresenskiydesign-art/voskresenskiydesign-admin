@@ -183,6 +183,10 @@ function mediaUrl(u) { return !u || /^(https?:|data:|blob:|\/)/.test(u) ? u || "
 function catName(id) { return tr(data.categories.find((c) => c.id === id)?.label, "ru") || id || "—"; }
 function demoArt(w) { const p = w.palette || ["#7B5CFF", "#FF5C8A", "#120A24"]; return `<div class="demo" style="--p0:${esc(p[0])};--p1:${esc(p[1])};--p2:${esc(p[2])}"></div>`; }
 function thumbOf(w) {
+  if (w.sensitive && !w._uploading) return thumbRaw(w) + `<span class="adult-mark">18+</span>`;
+  return thumbRaw(w);
+}
+function thumbRaw(w) {
   if (w._uploading) return `<div class="uploading"><div>Загрузка…<i></i></div></div>`;
   if (w.type === "image" && w.src) return `<img src="${esc(mediaUrl(w.src))}" alt="" loading="lazy">`;
   if (w.type === "video") return w.poster ? `<img src="${esc(mediaUrl(w.poster))}" alt="" loading="lazy">` : w.src ? `<video src="${esc(mediaUrl(w.src))}" muted preload="metadata"></video>` : demoArt(w);
@@ -368,6 +372,11 @@ function renderDrawer() {
     ${F.i18n("Описание", `${p}.desc`, { area: true })}
     <div class="grid2">${F.text("Клиент", `${p}.client`)}${F.text("Год", `${p}.year`)}</div>
     ${F.toggle("Показывать на сайте", `${p}.published`)}
+    <div class="sens ${w.sensitive ? "is-on" : ""}">
+      <label class="switch"><input type="checkbox" data-path="${p}.sensitive" data-rerender="drawer" ${w.sensitive ? "checked" : ""}><span>18+ / чувствительный контент</span></label>
+      <small class="muted">На сайте превью будет размыто, а ролик откроется только после двух подтверждений: предупреждение о содержании и «мне 18+».</small>
+      ${w.sensitive ? F.i18n("Текст предупреждения (необязательно)", `${p}.warn`, { area: true, rows: 2, hint: "Если оставить пустым — «3D-визуализация медицинской операции: кровь и анатомические подробности. Не для слабонервных»." }) : ""}
+    </div>
     <div class="drawer__foot">
       <button class="btn btn--danger" data-act="del">Удалить работу</button>
       <div class="chips"><button class="btn btn--ghost" data-drawer-done>Закрыть</button><button class="btn btn--primary" data-drawer-save>Сохранить</button></div>
